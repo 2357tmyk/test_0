@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Theory Fundamentals</title>
+    
+    <!-- MathJax for proper math rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #ffffff;
+            --text-color: #2c3e50;
+            --code-bg: #f8f9fa;
+            --border-color: #e1e5e9;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Meiryo', 'Yu Gothic', 'MS Gothic', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 1rem;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 1rem;
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        h4 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.6rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-bottom: 1.2rem;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .math-block {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        em {
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            pre {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Control Theory Fundamentals</h1>
+
+        <h2>Introduction</h2>
+        <p>Control theory deals with the behavior of dynamical systems with inputs and how their behavior is modified by feedback.</p>
+
+        <h2>Basic Concepts</h2>
+
+        <h3>Transfer Functions</h3>
+        <p>A transfer function represents the relationship between input and output of a linear time-invariant system:</p>
+
+        <div class="math-block">
+            $$G(s) = \frac{Y(s)}{U(s)}$$
+        </div>
+
+        <p>Where:</p>
+        <ul>
+            <li>$G(s)$ is the transfer function</li>
+            <li>$Y(s)$ is the Laplace transform of the output</li>
+            <li>$U(s)$ is the Laplace transform of the input</li>
+        </ul>
+
+        <h3>Feedback Control</h3>
+        <p>The closed-loop transfer function is:</p>
+
+        <div class="math-block">
+            $$T(s) = \frac{G(s)}{1 + G(s)H(s)}$$
+        </div>
+
+        <p>Where $H(s)$ is the feedback transfer function.</p>
+
+        <h2>Stability Criteria</h2>
+
+        <h3>Routh-Hurwitz Criterion</h3>
+        <p>For a characteristic polynomial:</p>
+        <div class="math-block">
+            $$s^n + a_1s^{n-1} + a_2s^{n-2} + \ldots + a_n = 0$$
+        </div>
+
+        <p>The system is stable if all coefficients in the first column of the Routh table are positive.</p>
+
+        <h3>Nyquist Criterion</h3>
+        <p>A feedback system is stable if the Nyquist plot of $G(s)H(s)$ does not encircle the (-1, 0) point.</p>
+
+        <h2>Controller Design</h2>
+
+        <h3>PID Control</h3>
+        <p>The PID controller has the form:</p>
+
+        <div class="math-block">
+            $$C(s) = K_p + \frac{K_i}{s} + K_d s$$
+        </div>
+
+        <h4>Tuning Parameters:</h4>
+        <ul>
+            <li>$K_p$: Proportional gain - reduces steady-state error</li>
+            <li>$K_i$: Integral gain - eliminates steady-state error</li>
+            <li>$K_d$: Derivative gain - improves transient response</li>
+        </ul>
+
+        <h3>Root Locus Method</h3>
+        <p>The root locus shows how closed-loop poles move as the gain varies.</p>
+
+        <h4>Rules:</h4>
+        <ol>
+            <li>Starts at open-loop poles</li>
+            <li>Ends at open-loop zeros</li>
+            <li>Number of branches = number of poles</li>
+        </ol>
+
+        <h2>Frequency Domain Analysis</h2>
+
+        <h3>Bode Plots</h3>
+        <p>Bode plots show:</p>
+        <ul>
+            <li>Magnitude: $20\log_{10}|G(j\omega)|$ (dB)</li>
+            <li>Phase: $\angle G(j\omega)$ (degrees)</li>
+        </ul>
+
+        <h4>Stability Margins:</h4>
+        <ul>
+            <li>Gain margin: Additional gain before instability</li>
+            <li>Phase margin: Additional phase lag before instability</li>
+        </ul>
+
+        <h3>Example System</h3>
+        <p>For a second-order system:</p>
+        <div class="math-block">
+            $$G(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}$$
+        </div>
+
+        <ul>
+            <li>$\omega_n$: Natural frequency</li>
+            <li>$\zeta$: Damping ratio</li>
+        </ul>
+    </div>
+</body>
+</html>
